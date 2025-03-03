@@ -57,7 +57,7 @@ const Navbar = () => {
               </Button>
             </SheetTrigger>
             <SheetContent>
-              <Link href={"/"} className="text-foreground">
+              <Link href={"/"} className="text-center">
                 <Logo />
               </Link>
               <div className="flex flex-col gap-3 items-center">
@@ -69,7 +69,7 @@ const Navbar = () => {
                   <Link
                     key={item.title}
                     href={item.title}
-                    className="text-md text-foreground hover:text-primary transition-all duration-300 ease-in-out"
+                    className="text-md  hover:text-primary transition-all duration-300 ease-in-out"
                   >
                     {item.title}
                   </Link>
@@ -79,7 +79,7 @@ const Navbar = () => {
                 {SocialIcons.map(({ link, Icon, color }) => (
                   <Link key={link} href={link}>
                     <Icon
-                      className={` p-2 rounded-sm w-8 h-8 border-1 text-foreground border-muted-foreground hover:text-primary hover:border-primary transition-all duration-300 ease-in-out`}
+                      className={` p-2 rounded-sm w-8 h-8 border-1 border-muted-foreground hover:text-primary hover:border-primary transition-all duration-300 ease-in-out`}
                     />
                   </Link>
                 ))}
