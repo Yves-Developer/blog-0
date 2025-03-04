@@ -46,7 +46,7 @@ const Navbar = () => {
             <User className="p-2 rounded-sm w-8 h-8 bg-primary hover:bg-primary/10 hover:text-primary transition-all duration-300 ease-in-out" />
           </Link>
           {/* Mobile Navbar */}
-          <Sheet className="bg-accent-foreground">
+          <Sheet>
             <SheetTrigger asChild>
               <Button
                 className={cn(
