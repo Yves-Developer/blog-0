@@ -11,7 +11,10 @@ const LatestPosts = () => {
     <Card className="w-3/4 flex flex-col gap-5">
       {/* Main Container */}
       {posts.map((post) => (
-        <div className="mt-3 relative flex gap-3 after:absolute after:left-0 after:top-full after:w-full after:h-[1px] after:bg-gradient-to-l after:from-zinc-500 after:to-transparent after:mt-4">
+        <div
+          key={post.id}
+          className="mt-3 relative flex gap-3 after:absolute after:left-0 after:top-full after:w-full after:h-[1px] after:bg-gradient-to-l after:from-zinc-500 after:to-transparent after:mt-4"
+        >
           {/* Blog Image */}
           <div className="h-48 w-64 rounded-md bg-amber-950">
             <Image
