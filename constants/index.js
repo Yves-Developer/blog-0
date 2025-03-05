@@ -61,13 +61,13 @@ export const posts = [
     date: "February 20, 2025",
     readTime: "5 min read",
   },
-  {
-    id: 5,
-    title: "Top 10 VS Code Extensions for Web Developers",
-    excerpt:
-      "Boost your productivity with these must-have VS Code extensions...",
-    image: "/mountain.jpg",
-    date: "February 15, 2025",
-    readTime: "4 min read",
-  },
+  // {
+  //   id: 5,
+  //   title: "Top 10 VS Code Extensions for Web Developers",
+  //   excerpt:
+  //     "Boost your productivity with these must-have VS Code extensions...",
+  //   image: "/mountain.jpg",
+  //   date: "February 15, 2025",
+  //   readTime: "4 min read",
+  // },
 ];

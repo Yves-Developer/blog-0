@@ -10,7 +10,7 @@ const FeaturedPost = () => {
       {/* Background Image Container */}
       <div className="w-full h-full bg-no-repeat bg-center bg-cover rounded-md bg-[url(/mountain.jpg)] hover:scale-110 transition-all duration-300 ease-in-out">
         {/* Gradient Overlay */}
-        <div className="w-full h-full bg-gradient-to-b from-transparent to-accent-foreground rounded-md"></div>
+        <div className="w-full h-full bg-gradient-to-b from-transparent to-[#142030] rounded-md"></div>
       </div>
 
       {/* Text (Placed Outside the Scaling Div) */}
