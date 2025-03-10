@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="selection:bg-primary selection:text-accent-foreground">
         <MyThemeProvider>
           <Navbar />
           <Wrapper classNames="py-10">

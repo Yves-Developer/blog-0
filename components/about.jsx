@@ -1,7 +1,5 @@
 import Card from "./ui/card";
-import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
-import { Input } from "./ui/input";
 import Logo from "./logo";
 import Link from "next/link";
 import { SocialIcons } from "@/constants";
