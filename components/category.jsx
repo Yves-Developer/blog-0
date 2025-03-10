@@ -1,0 +1,44 @@
+import Card from "./ui/card";
+import { cn } from "@/lib/utils";
+import Header from "./header";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+import { categories } from "@/constants";
+
+const Category = ({ className }) => {
+  return (
+    <div className="max-sm:px-[20px]">
+      <Card
+        className={cn(
+          "p-4 flex flex-col gap-3 justify-center items-center",
+          className
+        )}
+      >
+        <Header title="Explore Topics" className="text-xl mb-1" />
+
+        <div className="flex flex-col gap-3 w-full">
+          {categories.map((category) => (
+            <div
+              key={category.slug}
+              className="relative pb-2 flex gap-3 items-center w-full before:absolute before:left-0 before:bottom-0 before:w-full before:h-[1px] before:bg-gradient-to-l before:from-transparent before:to-[#262626]"
+            >
+              <ChevronRight className="p-1 rounded-sm w-5 h-5 border border-primary text-primary flex-shrink-0" />
+
+              <Link
+                href={category.slug}
+                className="flex items-center gap-2 w-full overflow-hidden hover:text-primary transition-all duration-300 ease-in-out"
+              >
+                <span className="truncate block w-full">{category.topic}</span>
+                <span className="w-fit h-5 px-2 flex items-center justify-center bg-primary rounded-sm flex-shrink-0">
+                  {category.totalPosts}
+                </span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+export default Category;

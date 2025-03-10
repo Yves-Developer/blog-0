@@ -71,3 +71,31 @@ export const posts = [
   //   readTime: "4 min read",
   // },
 ];
+
+export const categories = [
+  {
+    topic: "AI & Machine Learning",
+    slug: "ai-machine-learning",
+    totalPosts: 25,
+  },
+  {
+    topic: "Web Development",
+    slug: "web-development",
+    totalPosts: 40,
+  },
+  {
+    topic: "Cybersecurity",
+    slug: "cybersecurity",
+    totalPosts: 18,
+  },
+  {
+    topic: "Data Science",
+    slug: "data-science",
+    totalPosts: 30,
+  },
+  {
+    topic: "Mobile Development",
+    slug: "mobile-development",
+    totalPosts: 22,
+  },
+];

@@ -6,18 +6,18 @@ import Wrapper from "./wrapper";
 import { Navdata, SocialIcons } from "@/constants";
 import clsx from "clsx";
 import { cn } from "@/lib/utils";
-import { Menu, User } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { LinkIcon, Menu, User } from "lucide-react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
-    <div className="py-4 top-0 left-0 right-0 sticky z-10 bg-[#142030] ">
+    <div className="py-4 top-0 left-0 right-0 sticky z-10 bg-[#17171799] border-1 border-b border-[#262626] backdrop-blur-[10px]">
       <Wrapper classNames={"flex justify-between items-center"}>
         <Link href={"/"}>
           <Logo />
         </Link>
-        <div className="flex gap-3">
+        <div className="flex gap-3 max-sm:hidden">
           {/* Active Link */}
           {/* <Link href={"/"} className="text-xl text-primary font-semi-bold">
             Home
@@ -26,13 +26,13 @@ const Navbar = () => {
             <Link
               key={item.title}
               href={item.title}
-              className="text-md text-primary-foreground hover:text-primary transition-all duration-300 ease-in-out"
+              className="text-md hover:text-primary transition-all duration-300 ease-in-out"
             >
               {item.title}
             </Link>
           ))}
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 max-md:hidden">
           {SocialIcons.map(({ link, Icon, color }) => (
             <Link key={link} href={link}>
               <Icon
@@ -47,6 +47,7 @@ const Navbar = () => {
           </Link>
           {/* Mobile Navbar */}
           <Sheet>
+            <SheetTitle />
             <SheetTrigger asChild>
               <Button
                 className={cn(
@@ -56,11 +57,11 @@ const Navbar = () => {
                 <Menu />
               </Button>
             </SheetTrigger>
-            <SheetContent>
-              <Link href={"/"} className="text-center">
+            <SheetContent className={cn("py-30 flex justify-between")}>
+              <Link href={"/"} className="px-28">
                 <Logo />
               </Link>
-              <div className="flex flex-col gap-3 items-center">
+              <div className="flex flex-col gap-3 px-28 w-full">
                 {/* Active Link */}
                 {/* <Link href={"/"} className="text-xl text-primary font-semi-bold">
             Home
@@ -69,9 +70,11 @@ const Navbar = () => {
                   <Link
                     key={item.title}
                     href={item.title}
-                    className="text-md  hover:text-primary transition-all duration-300 ease-in-out"
+                    className="relative flex gap-3 items-center pb-2 text-md  hover:text-primary transition-all duration-300 ease-in-out before:absolute before:left-0 before:bottom-0 before:w-full before:h-[1px] before:bg-gradient-to-l before:from-transparent before:to-[#262626]"
                   >
-                    {item.title}
+                    <LinkIcon className="w-5 h-5 px-1 flex items-center justify-center border-1 rounded-sm flex-shrink-0" />
+
+                    <span className="truncate block w-full">{item.title}</span>
                   </Link>
                 ))}
               </div>
