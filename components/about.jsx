@@ -8,7 +8,7 @@ import { SocialIcons } from "@/constants";
 
 const About = ({ className }) => {
   return (
-    <div className="max-sm:px-[20px]">
+    <div className="max-sm:px-[20px] max-md:px-[100px]">
       <Card
         className={cn(
           "p-4 flex gap-5 flex-col justify-center items-center",

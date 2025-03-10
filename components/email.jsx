@@ -5,7 +5,7 @@ import { Input } from "./ui/input";
 
 const Email = ({ className }) => {
   return (
-    <div className="max-sm:px-[20px]">
+    <div className="max-sm:px-[20px] max-md:px-[100px]">
       <Card
         className={cn(
           "p-4 flex gap-3 flex-col justify-between items-center",

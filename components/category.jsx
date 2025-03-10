@@ -7,7 +7,7 @@ import { categories } from "@/constants";
 
 const Category = ({ className }) => {
   return (
-    <div className="max-sm:px-[20px]">
+    <div className="max-sm:px-[20px] max-md:px-[100px]">
       <Card
         className={cn(
           "p-4 flex flex-col gap-3 justify-center items-center",

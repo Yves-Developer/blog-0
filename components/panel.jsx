@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Panel = ({ className }) => {
   return (
-    <div className="max-sm:px-[20px]">
+    <div className="max-sm:px-[20px] max-md:px-[100px]">
       <Card className={cn("w-1/3  p-4 flex gap-3 flex-col", className)}>
         <div className="flex gap-3 self-center">
           <Button
