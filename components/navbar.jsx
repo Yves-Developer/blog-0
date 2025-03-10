@@ -58,10 +58,10 @@ const Navbar = () => {
               </Button>
             </SheetTrigger>
             <SheetContent className={cn("py-30 flex justify-between")}>
-              <Link href={"/"} className="px-28">
+              <Link href={"/"} className="px-10">
                 <Logo />
               </Link>
-              <div className="flex flex-col gap-3 px-28 w-full">
+              <div className="flex flex-col gap-3 px-10 w-full">
                 {/* Active Link */}
                 {/* <Link href={"/"} className="text-xl text-primary font-semi-bold">
             Home
@@ -78,7 +78,7 @@ const Navbar = () => {
                   </Link>
                 ))}
               </div>
-              <div className="flex gap-3 justify-center">
+              <div className="flex gap-3 px-10">
                 {SocialIcons.map(({ link, Icon, color }) => (
                   <Link key={link} href={link}>
                     <Icon
