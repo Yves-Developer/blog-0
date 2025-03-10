@@ -3,7 +3,7 @@ import React from "react";
 
 const FeaturedPost = () => {
   return (
-    <div className="">
+    <div className="max-sm:px-[20px]">
       <div className="w-full aspect-[16/9] min-h-auto overflow-hidden rounded-md relative shadow-[0_8px_20px_rgba(15,36,36,0.3)]">
         {/* Background Image Container */}
         <div className="w-full h-full bg-no-repeat bg-center bg-cover rounded-md bg-[url(/mountain.jpg)] hover:scale-105 transition-all duration-500 ease-in-out">
