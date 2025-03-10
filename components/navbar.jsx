@@ -12,7 +12,7 @@ import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
-    <div className="py-4 top-0 left-0 right-0 sticky z-10 bg-[#17171799] border-1 border-b border-[#262626] backdrop-blur-[10px]">
+    <div className="py-4 px-4 top-0 left-0 right-0 sticky z-10 bg-[#17171799] border-1 border-b border-[#262626] backdrop-blur-[10px]">
       <Wrapper classNames={"flex justify-between items-center"}>
         <Link href={"/"}>
           <Logo />
