@@ -6,7 +6,7 @@ import { posts } from "@/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { formatDate } from "@/lib/formatter";
-import { config } from "@/lib/config";
+import { config } from "@/lib/settings";
 
 const Panel = async ({ className }) => {
   const res = await fetch(

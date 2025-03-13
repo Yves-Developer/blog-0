@@ -5,7 +5,7 @@ import { Ellipsis, Share2 } from "lucide-react";
 import Link from "next/link";
 import { posts } from "@/constants";
 import { Button } from "./ui/button";
-import { config } from "@/lib/config";
+import { config } from "@/lib/settings";
 import { formatDate } from "@/lib/formatter";
 
 const LatestPosts = async () => {

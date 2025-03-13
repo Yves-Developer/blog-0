@@ -1,4 +1,4 @@
-import { config } from "@/lib/config";
+import { config } from "@/lib/settings";
 import { formatDate } from "@/lib/formatter";
 import Link from "next/link";
 
@@ -30,13 +30,13 @@ const FeaturedPost = async () => {
 
         {/* Text Content */}
         <div className="absolute left-6 sm:left-10 bottom-6 sm:bottom-10 flex flex-col gap-3">
-          <span className="inline-flex items-center rounded-md bg-primary px-3 py-1 text-xs font-medium text-white w-fit">
+          <span className="inline-flex items-center rounded-sm bg-primary px-3 py-1 text-xs font-medium text-white w-fit">
             {featuredPost.category.Name}
           </span>
 
           <Link
             href={`/${featuredPost.Slug}`}
-            className="text-2xl line-clamp-2 sm:text-4xl hover:text-primary cursor-pointer transition-all ease-in duration-300 font-bold leading-tight sm:leading-snug"
+            className="text-2xl line-clamp-2 sm:text-3xl hover:text-primary cursor-pointer transition-all ease-in duration-300 font-bold leading-tight sm:leading-snug"
           >
             {featuredPost.Title}
           </Link>

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import Header from "./header";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { config } from "@/lib/config";
+import { config } from "@/lib/settings";
 
 const Category = async ({ className }) => {
   const res = await fetch(

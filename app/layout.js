@@ -32,7 +32,6 @@ export default function RootLayout({ children }) {
                 <Panel />
                 <Category />
                 <Email />
-                <Email />
               </div>
             </div>
           </Wrapper>
