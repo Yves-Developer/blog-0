@@ -5,26 +5,42 @@ import { Ellipsis, Share2 } from "lucide-react";
 import Link from "next/link";
 import { posts } from "@/constants";
 import { Button } from "./ui/button";
+import { config } from "@/lib/config";
+import { formatDate } from "@/lib/formatter";
 
-const LatestPosts = () => {
+const LatestPosts = async () => {
+  const res = await fetch(
+    `${config.apiEndpoint}/posts?populate[author][populate]=Profile&populate=Thumbnail`,
+    {
+      headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` }, // Fixed typo here
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Error fetching posts: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  const postees = data.data;
   return (
     <div className="max-sm:px-[20px]">
       <Card className="w-full grid grid-cols-2 gap-6 md:grid-cols-1 md:gap-8 max-sm:grid-cols-1">
         {/* Main Container */}
-        {posts.map((post) => (
+        {postees.map((postee) => (
           <div
-            key={post.id}
+            key={postee.id}
             className="mt-3 relative flex flex-col md:flex-row gap-3 md:gap-6 after:absolute after:left-0 after:top-full after:w-full after:h-[1px] after:bg-gradient-to-l after:from-[#262626] after:to-transparent after:mt-4"
           >
             {/* Blog Image */}
             <div className="h-48 w-full md:w-64 rounded-md overflow-hidden mb-4 md:mb-0">
               <Image
-                width={120}
-                height={120}
-                src="/mountain.jpg"
-                alt="Mountain"
-                objectFit="cover"
-                className="w-full h-full rounded-md"
+                src={postee.Thumbnail.url}
+                width={1920}
+                height={1080}
+                alt={postee.Title + "Image"}
+                quality={100}
+                priority
+                className="w-full rounded-md object-cover"
               />
             </div>
 
@@ -33,31 +49,31 @@ const LatestPosts = () => {
               {/* Author Info */}
               <div className="flex gap-3 items-center">
                 <Image
-                  src="/mountain.jpg"
+                  src={postee.author.Profile.url || "/mountain.jpg"}
                   width={32}
                   height={32}
                   alt="Author"
                   objectFit="cover"
                   className="w-8 h-8 rounded-full"
                 />
-                <h3 className="text-[#7d7f78] mr-2">Yves DC</h3>
+                <h3 className="text-[#7d7f78] mr-2">{postee.author.Name}</h3>
                 <div className="relative flex items-center gap-1 text-[#7d7f78]">
                   <span className="absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-1 bg-primary rounded-full"></span>
-                  <p>{post.date}</p>
+                  <p>{formatDate(postee.publishedAt)}</p>
                 </div>
               </div>
 
               {/* Blog Title */}
               <Link
-                href="/"
+                href={`/${postee.Slug}`}
                 className="hover:text-primary transition-all duration-300 ease-in-out text-2xl font-semibold line-clamp-2"
               >
-                {post.title}
+                {postee.Title}
               </Link>
 
               {/* Blog Description */}
               <p className="text-[#7d7f78] text-lg line-clamp-3">
-                {post.excerpt}
+                {posts[0].excerpt}
               </p>
 
               {/* Actions */}
