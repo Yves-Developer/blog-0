@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const FeaturedPost = async () => {
   const res = await fetch(
-    `${config.apiEndpoint}/posts?pagination[pageSize]=1&populate=author&populate=Thumbnail&populate=category`,
+    `${config.apiEndpoint}/posts?sort=publishedAt:desc&pagination[pageSize]=1&populate=author&populate=Thumbnail&populate=category`,
     {
       headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
       next: {
