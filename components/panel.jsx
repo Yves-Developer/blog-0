@@ -13,6 +13,11 @@ const Panel = async ({ className }) => {
     `${config.apiEndpoint}/posts?pagination[pageSize]=5&populate=Thumbnail`,
     {
       headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` }, // Fixed typo here
+    },
+    {
+      next: {
+        revaidate: 60,
+      },
     }
   );
 

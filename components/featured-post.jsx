@@ -7,6 +7,11 @@ const FeaturedPost = async () => {
     `${config.apiEndpoint}/posts?pagination[pageSize]=1&populate=author&populate=Thumbnail&populate=category`,
     {
       headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` }, // Fixed typo here
+    },
+    {
+      next: {
+        revalidate: 60,
+      },
     }
   );
 

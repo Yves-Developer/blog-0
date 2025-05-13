@@ -12,7 +12,12 @@ const LatestPosts = async () => {
   const res = await fetch(
     `${config.apiEndpoint}/posts?populate[author][populate]=Profile&populate=Thumbnail`,
     {
-      headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` }, // Fixed typo here
+      headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+    },
+    {
+      next: {
+        revalidate: 60,
+      },
     }
   );
 
