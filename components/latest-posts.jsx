@@ -13,8 +13,6 @@ const LatestPosts = async () => {
     `${config.apiEndpoint}/posts?populate[author][populate]=Profile&populate=Thumbnail`,
     {
       headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
-    },
-    {
       next: {
         revalidate: 60,
       },

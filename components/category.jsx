@@ -10,8 +10,6 @@ const Category = async ({ className }) => {
     `${config.apiEndpoint}/categories?pagination[pageSize]=5&populate[posts][fields][0]=id`,
     {
       headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` }, // Fixed typo here
-    },
-    {
       next: {
         ravalidate: 60,
       },
