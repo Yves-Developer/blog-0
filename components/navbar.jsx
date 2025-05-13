@@ -25,7 +25,7 @@ const Navbar = () => {
           {Navdata.map((item) => (
             <Link
               key={item.title}
-              href={item.title}
+              href={item.slug}
               className="text-md hover:text-primary transition-all duration-300 ease-in-out"
             >
               {item.title}
@@ -69,7 +69,7 @@ const Navbar = () => {
                 {Navdata.map((item) => (
                   <Link
                     key={item.title}
-                    href={item.title}
+                    href={item.slug}
                     className="relative flex gap-3 items-center pb-2 text-md  hover:text-primary transition-all duration-300 ease-in-out before:absolute before:left-0 before:bottom-0 before:w-full before:h-[1px] before:bg-gradient-to-l before:from-transparent before:to-[#262626]"
                   >
                     <LinkIcon className="w-5 h-5 px-1 flex items-center justify-center border-1 rounded-sm flex-shrink-0" />
