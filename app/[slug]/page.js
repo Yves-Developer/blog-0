@@ -10,7 +10,10 @@ import { config } from "@/lib/settings";
 import { formatDate } from "@/lib/formatter";
 import Image from "next/image";
 import BlogContent from "./BlogContent"; // Import client component
-
+export const metadata = {
+  title: "blog.sharpbook.store | Post",
+  description: "A blog website - sharpbook.store | blog.sharpbook.store",
+};
 export async function generateStaticParams() {
   const res = await fetch(`${config.apiEndpoint}/posts?fields=Slug`, {
     headers: {
