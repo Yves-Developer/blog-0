@@ -9,7 +9,7 @@ import Wrapper from "@/components/wrapper";
 import PlausibleProvider from "next-plausible";
 export const metadata = {
   title: "Blog Website",
-  description: "A blog website",
+  description: "A blog website - sharpbook.store | blog.sharpbook.store",
 };
 
 export default function RootLayout({ children }) {
