@@ -6,7 +6,7 @@ import Panel from "@/components/panel";
 import Category from "@/components/category";
 import Email from "@/components/email";
 import Wrapper from "@/components/wrapper";
-
+import PlausibleProvider from "next-plausible";
 export const metadata = {
   title: "Blog Website",
   description: "A blog website",
@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="selection:bg-primary selection:text-accent-foreground">
+        <PlausibleProvider domain="blog.sharpbook.store" outboundTracking={true}>
         <MyThemeProvider>
           <Navbar />
           <Wrapper classNames="py-10">
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
             </div>
           </Wrapper>
         </MyThemeProvider>
+        </PlausibleProvider>
       </body>
     </html>
   );
