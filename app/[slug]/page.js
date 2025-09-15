@@ -9,11 +9,9 @@ import {
 import { config } from "@/lib/settings";
 import { formatDate } from "@/lib/formatter";
 import Image from "next/image";
-import BlogContent from "./BlogContent"; // Import client component
-export const metadata = {
-  title: "blog.sharpbook.store | Post",
-  description: "A blog website - sharpbook.store | blog.sharpbook.store",
-};
+import BlogContent from "./BlogContent";
+import Script from "next/script";
+
 export async function generateStaticParams() {
   const res = await fetch(`${config.apiEndpoint}/posts?fields=Slug`, {
     headers: {
@@ -34,23 +32,62 @@ async function getPost(slug) {
       headers: {
         authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
       },
-      next: { revalidate: 60 }, // ISR enabled
+      next: { revalidate: 60 },
     }
   );
 
   if (!res.ok) return null;
-
   const data = await res.json();
   return data.data[0] || null;
+}
+
+// DYNAMIC METADATA
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const post = await getPost(slug);
+  if (!post) return {};
+
+  const ogImage = post.Thumbnail?.url || "/images/default-og.png";
+
+  return {
+    title: `${post.Title} | YvesDC`,
+    description: post.Content.slice(0, 160),
+    keywords: [post.Title, post.category.Name, "YvesDC", "Blog", "Coding"],
+    authors: [{ name: post.author.Name }],
+    metadataBase: new URL("https://yvesdc.site"),
+
+    openGraph: {
+      title: `${post.Title} | YvesDC`,
+      description: post.Content.slice(0, 160),
+      url: `https://yvesdc.site/${post.Slug}`,
+      siteName: "YvesDC",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.Title,
+        },
+      ],
+      type: "article",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.Title} | YvesDC`,
+      description: post.Content.slice(0, 160),
+      images: [ogImage],
+    },
+  };
 }
 
 export default async function Blog({ params }) {
   const { slug } = await params;
   const post = await getPost(slug);
 
-  if (!post) {
-    return <div>Post not found</div>;
-  }
+  if (!post) return <div>Post not found</div>;
+
+  const ogImage = post.Thumbnail?.url || "/images/default-og.jpg";
 
   return (
     <div className="relative max-sm:px-[20px] pb-3 flex flex-col gap-3 after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1px] after:bg-gradient-to-l after:from-[#262626] after:to-transparent after:mt-4">
@@ -86,7 +123,7 @@ export default async function Blog({ params }) {
       {/* Post Thumbnail */}
       <div className="aspect-16/9 rounded-md">
         <Image
-          src={post.Thumbnail?.url || "/placeholder.jpg"}
+          src={ogImage}
           width={1920}
           height={1080}
           quality={100}
@@ -96,8 +133,50 @@ export default async function Blog({ params }) {
         />
       </div>
 
-      {/* Post Content - Use Client Component */}
+      {/* Post Content */}
       <BlogContent content={post.Content} />
+
+      {/* JSON-LD Structured Data */}
+      <Script id="json-ld" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.Title,
+          description: post.Content.slice(0, 160),
+          author: { "@type": "Person", name: post.author.Name },
+          datePublished: post.publishedAt,
+          url: `https://yvesdc.site/${post.Slug}`,
+          image: ogImage,
+        })}
+      </Script>
+
+      {/* Breadcrumb JSON-LD */}
+      <Script id="breadcrumb-jsonld" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://yvesdc.site",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: post.category.Name,
+              item: `https://yvesdc.site/${post.category.Slug}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: post.Title,
+              item: `https://yvesdc.site/${post.Slug}`,
+            },
+          ],
+        })}
+      </Script>
     </div>
   );
 }
