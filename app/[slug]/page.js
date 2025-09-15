@@ -40,13 +40,32 @@ async function getPost(slug) {
   const data = await res.json();
   return data.data[0] || null;
 }
+// Helper to extract text from Strapi Rich Text
+function extractText(contentObj) {
+  if (!contentObj) return '';
+  if (typeof contentObj === 'string') return contentObj;
 
+  // Strapi rich text usually has contentObj.content array
+  if (Array.isArray(contentObj.content)) {
+    return contentObj.content
+      .map(block => {
+        if (block.type === 'paragraph' && Array.isArray(block.content)) {
+          return block.content.map(c => c.text || '').join('');
+        }
+        return '';
+      })
+      .join(' ');
+  }
+
+  return '';
+}
 // DYNAMIC METADATA
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return {};
-
+// Usage:
+const descriptionText = extractText(post.Content).slice(0, 160);
   const ogImage = post.Thumbnail?.url || "/images/default-og.png";
 
   return {
@@ -55,30 +74,29 @@ export async function generateMetadata({ params }) {
     keywords: [post.Title, post.category.Name, "YvesDC", "Blog", "Coding"],
     authors: [{ name: post.author.Name }],
     metadataBase: new URL("https://yvesdc.site"),
-
-    openGraph: {
-      title: `${post.Title} | YvesDC`,
-      description: post.Content.slice(0, 160),
-      url: `https://yvesdc.site/${post.Slug}`,
-      siteName: "YvesDC",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: post.Title,
-        },
-      ],
-      type: "article",
+   openGraph: {
+  title: `${post.Title} | YvesDC`,
+  description: descriptionText,
+  url: `https://yvesdc.site/${post.Slug}`,
+  siteName: "YvesDC",
+  images: [
+    {
+      url: ogImage,
+      width: 1200,
+      height: 630,
+      alt: post.Title,
     },
+  ],
+  type: "article",
+},
 
-    twitter: {
-      card: "summary_large_image",
-      title: `${post.Title} | YvesDC`,
-      description: post.Content.slice(0, 160),
-      images: [ogImage],
-    },
-  };
+twitter: {
+  card: "summary_large_image",
+  title: `${post.Title} | YvesDC`,
+  description: descriptionText,
+  images: [ogImage],
+};
+    
 }
 
 export default async function Blog({ params }) {
