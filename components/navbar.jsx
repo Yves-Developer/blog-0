@@ -63,7 +63,7 @@ const Navbar = async () => {
           ))}
         </div>
         <div className="flex gap-3">
-          <Link href="https://cms.sharpbook.store" target="_blank">
+          <Link href="https://cms.yvesdc.site" target="_blank">
             <User className="p-2 rounded-sm w-8 h-8 bg-primary hover:bg-primary/10 hover:text-primary transition-all duration-300 ease-in-out" />
           </Link>
           {/* Mobile Navbar */}
