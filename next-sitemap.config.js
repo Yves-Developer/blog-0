@@ -7,7 +7,7 @@ module.exports = {
 
     // Fetch all posts
     const postsRes = await fetch(
-      `${process.env.STRAPI_API_URL}/posts?fields=Slug`,
+      `https://blog-cms-14.onrender.com/api/posts?fields=Slug`,
       {
         headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
       }
@@ -21,7 +21,7 @@ module.exports = {
 
     // Fetch all categories
     const categoriesRes = await fetch(
-      `${process.env.STRAPI_API_URL}/categories?fields=Slug`,
+      `https://blog-cms-14.onrender.com/api/categories?fields=Slug`,
       {
         headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
       }
