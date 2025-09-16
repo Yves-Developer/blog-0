@@ -43,35 +43,38 @@ async function getPost(slug) {
 }
 // Helper to extract text from Strapi Rich Text
 function extractText(contentObj) {
-  if (!contentObj) return '';
-  if (typeof contentObj === 'string') return contentObj;
+  if (!contentObj) return "";
+  if (typeof contentObj === "string") return contentObj;
 
   // Strapi rich text usually has contentObj.content array
   if (Array.isArray(contentObj.content)) {
     return contentObj.content
-      .map(block => {
-        if (block.type === 'paragraph' && Array.isArray(block.content)) {
-          return block.content.map(c => c.text || '').join('');
+      .map((block) => {
+        if (block.type === "paragraph" && Array.isArray(block.content)) {
+          return block.content.map((c) => c.text || "").join("");
         }
-        return '';
+        return "";
       })
-      .join(' ');
+      .join(" ");
   }
 
-  return '';
+  return "";
 }
 // DYNAMIC METADATA
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return {};
+
   const ogImage = post.Thumbnail?.url || "/images/default-og.jpg";
+
   return {
     title: `${post.Title} | YvesDC`,
     description: getExcerpt(post.Content),
     keywords: [post.Title, post.category.Name, "YvesDC", "Blog", "Coding"],
     authors: [{ name: post.author.Name }],
     metadataBase: new URL("https://yvesdc.site"),
+
     openGraph: {
       title: `${post.Title} | YvesDC`,
       description: getExcerpt(post.Content),
@@ -94,17 +97,9 @@ export async function generateMetadata({ params }) {
       description: getExcerpt(post.Content),
       images: [ogImage],
     },
-  ],
-  type: "article",
-},
 
-twitter: {
-  card: "summary_large_image",
-  title: `${post.Title} | YvesDC`,
-  description: descriptionText,
-  images: [ogImage],
-};
-    
+    type: "article",
+  };
 }
 
 export default async function Blog({ params }) {
