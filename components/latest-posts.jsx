@@ -3,10 +3,10 @@ import Card from "./ui/card";
 import Image from "next/image";
 import { Ellipsis, Share2 } from "lucide-react";
 import Link from "next/link";
-import { posts } from "@/constants";
 import { Button } from "./ui/button";
 import { config } from "@/lib/settings";
 import { formatDate } from "@/lib/formatter";
+import { getExcerpt } from "@/lib/excerpt";
 
 const LatestPosts = async () => {
   const res = await fetch(
@@ -76,7 +76,7 @@ const LatestPosts = async () => {
 
               {/* Blog Description */}
               <p className="text-[#7d7f78] text-lg line-clamp-3">
-                {posts[0].excerpt}
+                {getExcerpt(postee.Content)}
               </p>
 
               {/* Actions */}

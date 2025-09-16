@@ -11,6 +11,7 @@ import { formatDate } from "@/lib/formatter";
 import Image from "next/image";
 import BlogContent from "./BlogContent";
 import Script from "next/script";
+import { getExcerpt } from "@/lib/excerpt";
 
 export async function generateStaticParams() {
   const res = await fetch(`${config.apiEndpoint}/posts?fields=Slug`, {
@@ -64,27 +65,34 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return {};
-// Usage:
-const descriptionText = extractText(post.Content).slice(0, 160);
-  const ogImage = post.Thumbnail?.url || "/images/default-og.png";
-
+  const ogImage = post.Thumbnail?.url || "/images/default-og.jpg";
   return {
     title: `${post.Title} | YvesDC`,
-    description: post.Content.slice(0, 160),
+    description: getExcerpt(post.Content),
     keywords: [post.Title, post.category.Name, "YvesDC", "Blog", "Coding"],
     authors: [{ name: post.author.Name }],
     metadataBase: new URL("https://yvesdc.site"),
-   openGraph: {
-  title: `${post.Title} | YvesDC`,
-  description: descriptionText,
-  url: `https://yvesdc.site/${post.Slug}`,
-  siteName: "YvesDC",
-  images: [
-    {
-      url: ogImage,
-      width: 1200,
-      height: 630,
-      alt: post.Title,
+    openGraph: {
+      title: `${post.Title} | YvesDC`,
+      description: getExcerpt(post.Content),
+      url: `https://yvesdc.site/${post.Slug}`,
+      siteName: "YvesDC",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.Title,
+        },
+      ],
+      type: "article",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.Title} | YvesDC`,
+      description: getExcerpt(post.Content),
+      images: [ogImage],
     },
   ],
   type: "article",
@@ -160,7 +168,7 @@ export default async function Blog({ params }) {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           headline: post.Title,
-          description: post.Content.slice(0, 160),
+          description: getExcerpt(post.Content),
           author: { "@type": "Person", name: post.author.Name },
           datePublished: post.publishedAt,
           url: `https://yvesdc.site/${post.Slug}`,
