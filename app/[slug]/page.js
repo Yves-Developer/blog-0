@@ -11,6 +11,7 @@ import { formatDate } from "@/lib/formatter";
 import Image from "next/image";
 import BlogContent from "./BlogContent";
 import Script from "next/script";
+import { getExcerpt } from "@/lib/excerpt";
 
 export async function generateStaticParams() {
   const res = await fetch(`${config.apiEndpoint}/posts?fields=Slug`, {
@@ -47,18 +48,17 @@ export async function generateMetadata({ params }) {
   const post = await getPost(slug);
   if (!post) return {};
 
-  const ogImage = post.Thumbnail?.url || "/images/default-og.png";
-
+  const ogImage = post.Thumbnail?.url || "/images/default-og.jpg";
   return {
     title: `${post.Title} | YvesDC`,
-    description: post.Content.slice(0, 160),
+    description: getExcerpt(post.Content),
     keywords: [post.Title, post.category.Name, "YvesDC", "Blog", "Coding"],
     authors: [{ name: post.author.Name }],
     metadataBase: new URL("https://yvesdc.site"),
 
     openGraph: {
       title: `${post.Title} | YvesDC`,
-      description: post.Content.slice(0, 160),
+      description: getExcerpt(post.Content),
       url: `https://yvesdc.site/${post.Slug}`,
       siteName: "YvesDC",
       images: [
@@ -75,7 +75,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: `${post.Title} | YvesDC`,
-      description: post.Content.slice(0, 160),
+      description: getExcerpt(post.Content),
       images: [ogImage],
     },
   };
@@ -142,7 +142,7 @@ export default async function Blog({ params }) {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           headline: post.Title,
-          description: post.Content.slice(0, 160),
+          description: getExcerpt(post.Content),
           author: { "@type": "Person", name: post.author.Name },
           datePublished: post.publishedAt,
           url: `https://yvesdc.site/${post.Slug}`,

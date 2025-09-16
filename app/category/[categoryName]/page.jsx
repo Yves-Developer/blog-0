@@ -7,33 +7,8 @@ import { Button } from "@/components/ui/button";
 import { config } from "@/lib/settings";
 import { formatDate } from "@/lib/formatter";
 import Script from "next/script";
-
-// Helper to convert Strapi Rich Text to plain text for excerpts
-function getExcerpt(content, length = 120) {
-  if (!content) return "";
-  if (typeof content === "string") return content.slice(0, length);
-
-  const text = content
-    .map((block) => {
-      if (block.children && Array.isArray(block.children)) {
-        return block.children
-          .map((child) => (typeof child.text === "string" ? child.text : ""))
-          .join("");
-      }
-      return "";
-    })
-    .join(" ");
-  return text.slice(0, length);
-}
-
-// Deslugize category (replace - with space and capitalize)
-function deslugize(slug) {
-  if (!slug) return "";
-  return slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
+import { getExcerpt } from "@/lib/excerpt";
+import { deslugize } from "@/lib/deslugize";
 
 // Fetch posts by category slug
 async function getCategoryPosts(categorySlug) {
