@@ -1,16 +1,31 @@
 import Link from "next/link";
-import React from "react";
 import Logo from "./logo";
-
+import React from "react";
 import Wrapper from "./wrapper";
 import { Navdata, SocialIcons } from "@/constants";
-import clsx from "clsx";
 import { cn } from "@/lib/utils";
 import { LinkIcon, Menu, User } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
+import { config } from "@/lib/settings";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const res = await fetch(
+    `${config.apiEndpoint}/categories?pagination[pageSize]=2&populate[posts][fields][0]=id`,
+    {
+      headers: { authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` }, // Fixed typo here
+      next: {
+        ravalidate: 60,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Error fetching posts: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  const categories = data.data;
   return (
     <div className="py-4 px-4 top-0 left-0 right-0 sticky z-10 bg-[#17171799] border-1 border-b border-[#262626] backdrop-blur-[10px]">
       <Wrapper classNames={"flex justify-between items-center"}>
@@ -22,13 +37,19 @@ const Navbar = () => {
           {/* <Link href={"/"} className="text-xl text-primary font-semi-bold">
             Home
           </Link> */}
-          {Navdata.map((item) => (
+          <Link
+            href={"/"}
+            className="text-md hover:text-primary transition-all duration-300 ease-in-out"
+          >
+            Home
+          </Link>
+          {categories.map((category) => (
             <Link
-              key={item.title}
-              href={item.slug}
+              key={category.id}
+              href={`/category/${category.Slug}`}
               className="text-md hover:text-primary transition-all duration-300 ease-in-out"
             >
-              {item.title}
+              {category.Name}
             </Link>
           ))}
         </div>
