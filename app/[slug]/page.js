@@ -134,7 +134,7 @@ export default async function Blog({ params }) {
       </div>
 
       {/* Post Content */}
-      <BlogContent content={post.Content} />
+      <BlogContent content={post.ContentMd} />
 
       {/* JSON-LD Structured Data */}
       <Script id="json-ld" type="application/ld+json">
