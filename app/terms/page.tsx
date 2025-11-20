@@ -3,7 +3,7 @@ import path from "path";
 import Markdown from "react-markdown";
 
 export default function Terms() {
-  const filePath = path.join(process.cwd(), "TERMS_AND_CONDITIONS.md");
+  const filePath = path.join(process.cwd(),"public", "TERMS_AND_CONDITIONS.md");
   const content = fs.readFileSync(filePath, "utf8");
 
   return (
