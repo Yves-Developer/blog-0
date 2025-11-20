@@ -56,6 +56,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+        <head>
+        {/* ✅ Google AdSense Verification Meta Tag */}
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-6567175721280636"
+        />
+      </head>
       <body className="selection:bg-primary selection:text-accent-foreground">
         <PlausibleProvider
           domain="blog.sharpbook.store"
