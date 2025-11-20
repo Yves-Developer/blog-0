@@ -3,16 +3,16 @@ export default function Footer() {
     <footer className="py-10 mt-10 border-t text-center text-sm text-muted-foreground">
       <p>© {new Date().getFullYear()} YvesDC — All rights reserved.</p>
 
-      <p className="mt-2">
+      <p className="mt-2 flex gap-2">
         <a
-          href="/PRIVACY_POLICY.md"
+          href="/privacy"
           target="_blank"
           className="underline hover:text-primary"
         >
           Privacy Policy
         </a>
             <a
-          href="/TERMS_AND_CONDITIONS.md"
+          href="/terms"
           target="_blank"
           className="underline hover:text-primary"
         >
