@@ -6,6 +6,7 @@ import Panel from "@/components/panel";
 import Category from "@/components/category";
 import Email from "@/components/email";
 import Wrapper from "@/components/wrapper";
+import Footer from "@/components/footer";
 import PlausibleProvider from "next-plausible";
 // General Metadata
 export const metadata = {
@@ -87,6 +88,7 @@ export default function RootLayout({ children }) {
                 </div>
               </div>
             </Wrapper>
+            <Footer /> 
           </MyThemeProvider>
         </PlausibleProvider>
       </body>
